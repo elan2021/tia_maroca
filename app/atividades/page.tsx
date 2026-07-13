@@ -4,6 +4,8 @@ import BottomNav from "@/components/BottomNav";
 import ProductCard from "@/components/ProductCard";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic"
+
 export default async function Atividades() {
   const products = await db.product.findMany({
     orderBy: { createdAt: "desc" },
