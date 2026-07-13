@@ -43,14 +43,44 @@ export default function Sobre() {
             
             <div className="font-body-lg text-body-lg text-on-surface-variant space-y-4">
               <p>
-                Olá! Meu nome é Mara Oliveira. Sou pedagoga apaixonada pela educação infantil e acredito que o aprendizado deve ser uma jornada lúdica, cheia de descobertas e amor.
+                Minha jornada na educação começou em 2017, quando me formei em Pedagogia e descobri minha verdadeira vocação: transformar a forma como as crianças aprendem. De lá para cá, minha trajetória foi marcada pelo estudo constante e por uma paixão profunda pelo desenvolvimento infantil.
               </p>
               <p>
-                Criei o espaço "Tia Maroca" com o objetivo de compartilhar materiais pedagógicos criativos que auxiliam professores e pais a tornarem o dia a dia das crianças mais rico e estimulante. 
+                Sou pós-graduada em Psicopedagogia e, hoje, dedico meus dias ao atendimento clínico de crianças autistas em uma associação no contraturno escolar, onde atendo diferentes níveis de suporte. Mas eu queria ir além: por amar tanto esse público, estou cursando minha segunda graduação, agora em Terapia Ocupacional, para oferecer um olhar ainda mais completo e terapêutico para nossas crianças neurodivergentes.
+              </p>
+              
+              <h2 className="font-headline-md text-headline-md text-primary pt-4">Como tudo começou?</h2>
+              <p>
+                Enquanto estava em sala de aula, senti na pele a falta de materiais adaptados. Eu precisava de algo que fosse, ao mesmo tempo, prático, eficiente e que respeitasse o tempo de aprendizagem dos meus alunos. Como eu não encontrava esses recursos prontos na internet, comecei a desenvolver minhas próprias atividades.
               </p>
               <p>
-                Aqui você encontrará atividades pensadas com muito carinho para apoiar o desenvolvimento cognitivo e motor, sempre com aquele toque especial de diversão!
+                Foi um divisor de águas! Quando comecei a aplicar, percebi que não estava apenas facilitando minha rotina, mas criando caminhos reais para o aprendizado. Logo, colegas e pais começaram a me pedir esses materiais, e foi assim que nasceu o meu propósito: <strong>facilitar a vida de quem educa.</strong>
               </p>
+              
+              <h2 className="font-headline-md text-headline-md text-primary pt-4">Por que faço o que faço?</h2>
+              <p>
+                Eu acredito que toda criança merece estímulos adequados. Sei que muitas famílias enfrentam desafios na escola e, muitas vezes, não encontram o suporte necessário. Por isso, decidi abrir minhas atividades para você. Seja você um profissional da educação que busca otimizar seu tempo ou um pai/mãe que quer proporcionar um desenvolvimento estruturado para seu filho — seja ele neurodivergente ou típico — estou aqui para entregar o recurso que você precisa.
+              </p>
+              <p>
+                O meu objetivo é que, através de atividades lúdicas e bem estruturadas, possamos juntos construir conquistas diárias.
+              </p>
+              <p className="font-bold text-secondary text-xl pt-2">
+                Seja bem-vindo(a) ao meu mundo de aprendizado com amor!
+              </p>
+            </div>
+            
+            <div className="pt-6 border-t border-outline-variant mt-8">
+              <p className="font-body-md text-on-surface-variant mb-4">
+                Quer acompanhar mais sobre meu trabalho e ver essas atividades na prática?
+              </p>
+              <a 
+                href="https://instagram.com/psicopedagoga.maraoliveira" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white px-6 py-3 rounded-full font-label-lg hover:opacity-90 transition-opacity shadow-md"
+              >
+                Siga-me no Instagram @psicopedagoga.maraoliveira
+              </a>
             </div>
             
           </div>
