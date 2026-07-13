@@ -1,23 +1,23 @@
-"use client";
-
 import Link from "next/link";
 import Icon from "./Icon";
+import { db } from "@/lib/db";
 
-const navLinks = [
-  { label: "Início", active: true },
-  { label: "Sobre", active: false },
-  { label: "Atividades", active: false },
-  { label: "Blog", active: false },
-  { label: "Contato", active: false },
-];
+export default async function Header() {
+  const settings = await db.siteSetting.findMany();
+  const logoUrl = settings.find((s) => s.key === "logoUrl")?.value;
 
-export default function Header() {
   return (
     <header className="bg-surface-container-lowest sticky top-0 z-50 border-b border-primary-container shadow-sm">
       <div className="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
-        <div className="font-headline-lg text-headline-lg font-black text-primary">
-          Tia Maroca
-        </div>
+        <Link href="/" className="flex-shrink-0">
+          {logoUrl ? (
+            <img src={logoUrl} alt="Tia Maroca Logo" className="h-10 w-auto object-contain" />
+          ) : (
+            <div className="font-headline-lg text-headline-lg font-black text-primary">
+              Tia Maroca
+            </div>
+          )}
+        </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-primary hover:border-b-2 hover:border-primary pb-1 font-label-lg text-label-lg transition-colors duration-200">

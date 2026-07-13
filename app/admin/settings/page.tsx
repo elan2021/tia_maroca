@@ -41,6 +41,17 @@ export default async function SettingsPage() {
         <form action={saveSettings} className="space-y-6">
           
           <div>
+            <label className="block text-sm font-medium mb-2 text-on-surface">URL da Logomarca (Deixe vazio para usar apenas texto)</label>
+            <input 
+              type="url" 
+              name="logoUrl" 
+              defaultValue={config["logoUrl"] || ""} 
+              className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary" 
+              placeholder="https://..."
+            />
+          </div>
+
+          <div>
             <label className="block text-sm font-medium mb-2 text-on-surface">Badge da Home (Texto Acima do Título)</label>
             <input 
               type="text" 
