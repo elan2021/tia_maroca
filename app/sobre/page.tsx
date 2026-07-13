@@ -38,12 +38,15 @@ export default function Sobre() {
             </div>
             
             <h1 className="font-headline-xl text-headline-xl text-on-surface leading-tight">
-              Muito prazer, eu sou a <span className="text-primary italic">Tia Maroca!</span>
+              Muito prazer, eu sou a <span className="text-primary italic">Mara Oliveira!</span>
             </h1>
             
             <div className="font-body-lg text-body-lg text-on-surface-variant space-y-4">
               <p>
                 Minha jornada na educação começou em 2017, quando me formei em Pedagogia e descobri minha verdadeira vocação: transformar a forma como as crianças aprendem. De lá para cá, minha trajetória foi marcada pelo estudo constante e por uma paixão profunda pelo desenvolvimento infantil.
+              </p>
+              <p>
+                Ah, e caso você esteja se perguntando, <strong>Tia Maroca</strong> é como as crianças com as quais eu trabalho me chamam carinhosamente, e eu adotei esse nome com muito amor!
               </p>
               <p>
                 Sou pós-graduada em Psicopedagogia e, hoje, dedico meus dias ao atendimento clínico de crianças autistas em uma associação no contraturno escolar, onde atendo diferentes níveis de suporte. Mas eu queria ir além: por amar tanto esse público, estou cursando minha segunda graduação, agora em Terapia Ocupacional, para oferecer um olhar ainda mais completo e terapêutico para nossas crianças neurodivergentes.
