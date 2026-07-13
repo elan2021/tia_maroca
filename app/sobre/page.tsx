@@ -23,7 +23,7 @@ export default function Sobre() {
                   Mara Oliveira
                 </p>
                 <p className="font-label-lg text-label-lg text-secondary">
-                  Pedagoga e Psicopedagoga especialista em Tea
+                  Pedagoga e Psicopedagoga Especialista em Tea
                 </p>
               </div>
             </div>
