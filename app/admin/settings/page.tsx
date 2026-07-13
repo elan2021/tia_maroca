@@ -13,7 +13,7 @@ export default async function SettingsPage() {
   async function saveSettings(formData: FormData) {
     "use server"
     
-    const keys = ["heroTitle", "heroSubtitle", "heroBadge", "logoUrl"]
+    const keys = ["heroTitle", "heroSubtitle", "heroBadge"]
     
     for (const key of keys) {
       const value = formData.get(key) as string
@@ -24,6 +24,20 @@ export default async function SettingsPage() {
           create: { key, value }
         })
       }
+    }
+
+    const logoFile = formData.get("logoFile") as File
+    if (logoFile && logoFile.size > 0) {
+      const buffer = Buffer.from(await logoFile.arrayBuffer())
+      const base64 = buffer.toString('base64')
+      const mimeType = logoFile.type
+      const logoUrl = `data:${mimeType};base64,${base64}`
+      
+      await db.siteSetting.upsert({
+        where: { key: "logoUrl" },
+        update: { value: logoUrl },
+        create: { key: "logoUrl", value: logoUrl }
+      })
     }
     
     revalidatePath("/admin/settings")
@@ -41,14 +55,22 @@ export default async function SettingsPage() {
         <form action={saveSettings} className="space-y-6">
           
           <div>
-            <label className="block text-sm font-medium mb-2 text-on-surface">URL da Logomarca (Deixe vazio para usar apenas texto)</label>
-            <input 
-              type="url" 
-              name="logoUrl" 
-              defaultValue={config["logoUrl"] || ""} 
-              className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary" 
-              placeholder="https://..."
-            />
+            <label className="block text-sm font-medium mb-2 text-on-surface">Logomarca (Upload)</label>
+            <div className="flex flex-col gap-2">
+              {config["logoUrl"] && (
+                <div className="mb-2">
+                  <p className="text-xs text-on-surface-variant mb-1">Logomarca atual:</p>
+                  <img src={config["logoUrl"]} alt="Logo atual" className="h-12 object-contain" />
+                </div>
+              )}
+              <input 
+                type="file" 
+                name="logoFile" 
+                accept="image/*"
+                className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary-container file:text-on-primary-container hover:file:bg-primary/90 transition-all" 
+              />
+              <p className="text-xs text-on-surface-variant">Envie uma imagem pequena (máx 1MB). Deixe vazio para manter a atual.</p>
+            </div>
           </div>
 
           <div>
