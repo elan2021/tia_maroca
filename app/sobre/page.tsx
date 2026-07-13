@@ -14,7 +14,7 @@ export default function Sobre() {
             <div className="absolute inset-0 rainbow-gradient opacity-10 blur-3xl rounded-full scale-125"></div>
             <div className="relative bg-white p-4 rounded-[40px] cloud-shadow border-4 border-primary-container">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuADl3GQqw2gkcvphOjFZiEMNg4I0pwD4Zo-dfTe0HKXv4rxnjc8I3SoJL6oEk2kQS3sPtwqkffTrfks8VkLA7KT_R4pRF8_uJZNpbbY7vp8ErNTovn0Z_X2PoffSJJsWJyqt5-Vca0z9wuJn5axVsUWcS6HJRURyWmDzfXtiZyaOE0i-3wAE2cETze4B8gJj-6Qxv3eGwxjDARufOYhV0Km1iD3uQhecorY08xV4hEFiOrgXjhOjMe6IHvSkbzZDOERsZw5lT-1Tm0"
+                src="/mara.jpg"
                 alt="Professora Mara Oliveira"
                 className="rounded-[32px] w-full h-auto object-cover"
               />
