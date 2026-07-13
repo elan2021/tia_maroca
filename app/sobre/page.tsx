@@ -46,10 +46,10 @@ export default function Sobre() {
                 Minha jornada na educação começou em 2017, quando me formei em Pedagogia e descobri minha verdadeira vocação: transformar a forma como as crianças aprendem. De lá para cá, minha trajetória foi marcada pelo estudo constante e por uma paixão profunda pelo desenvolvimento infantil.
               </p>
               <p>
-                Ah, e caso você esteja se perguntando, <strong>Tia Maroca</strong> é como as crianças com as quais eu trabalho me chamam carinhosamente, e eu adotei esse nome com muito amor!
+                Ah, e caso você esteja se perguntando, <strong>Tia Maroka</strong> é como as crianças com as quais eu trabalho me chamam carinhosamente, e eu adotei esse nome com muito amor!
               </p>
               <p>
-                Sou pós-graduada em Psicopedagogia e, hoje, dedico meus dias ao atendimento clínico de crianças autistas em uma associação no contraturno escolar, onde atendo diferentes níveis de suporte. Mas eu queria ir além: por amar tanto esse público, estou cursando minha segunda graduação, agora em Terapia Ocupacional, para oferecer um olhar ainda mais completo e terapêutico para nossas crianças neurodivergentes.
+                Sou pós-graduada em Psicopedagogia e, hoje, dedico meus dias ao atendimento psicopedagógico educacional de crianças autistas em uma associação no contraturno escolar, onde atendo diferentes níveis de suporte. Mas eu queria ir além: por amar tanto esse público, estou cursando minha segunda graduação, agora em Terapia Ocupacional, para oferecer um olhar ainda mais completo e terapêutico para nossas crianças neurodivergentes.
               </p>
               
               <h2 className="font-headline-md text-headline-md text-primary pt-4">Como tudo começou?</h2>

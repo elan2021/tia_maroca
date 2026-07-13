@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
         <div className="space-y-4">
           <div className="font-headline-md text-headline-md text-on-primary-container">
-            Tia Maroca
+            Tia Maroka
           </div>
           <p className="font-body-md text-body-md text-on-primary-container/80">
             Recursos pedagógicos criados com carinho para transformar a
@@ -58,7 +58,7 @@ export default function Footer() {
       <div className="border-t border-on-primary-container/10 px-margin-mobile md:px-margin-desktop py-6">
         <div className="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="font-body-md text-body-md text-on-primary-container/60">
-            © 2024 Tia Maroca por Mara Oliveira. Todos os direitos reservados.
+            © 2024 Tia Maroka por Mara Oliveira. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-6">
             <Icon name="payments" className="text-on-primary-container/60" />

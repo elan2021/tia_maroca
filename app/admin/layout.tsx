@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-full md:w-64 bg-surface-container-low border-r border-outline-variant flex flex-col">
         <div className="p-6">
           <h2 className="text-xl font-bold font-title text-on-surface">Painel Admin</h2>
-          <p className="text-sm text-on-surface-variant">Tia Maroca</p>
+          <p className="text-sm text-on-surface-variant">Tia Maroka</p>
         </div>
         <nav className="flex-1 px-4 space-y-2">
           <Link href="/admin" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Dashboard</Link>

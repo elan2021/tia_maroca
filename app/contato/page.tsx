@@ -4,7 +4,7 @@ import BottomNav from "@/components/BottomNav";
 
 export default function Contato() {
   const whatsappNumber = "5511999999999"; // Substitua pelo número real da Mara Oliveira
-  const whatsappMessage = encodeURIComponent("Olá Tia Maroca! Gostaria de falar sobre as atividades pedagógicas.");
+  const whatsappMessage = encodeURIComponent("Olá Tia Maroka! Gostaria de falar sobre as atividades pedagógicas.");
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (

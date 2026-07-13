@@ -17,7 +17,7 @@ const vietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Tia Maroca | Atividades Pedagógicas com Amor",
+  title: "Tia Maroka | Atividades Pedagógicas com Amor",
   description:
     "Recursos pedagógicos criados com carinho para transformar a educação infantil em um momento de alegria e descoberta.",
 };

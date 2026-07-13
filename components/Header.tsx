@@ -11,10 +11,10 @@ export default async function Header() {
       <div className="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
         <Link href="/" className="flex-shrink-0">
           {logoUrl ? (
-            <img src={logoUrl} alt="Tia Maroca Logo" className="h-16 md:h-20 w-auto object-contain drop-shadow-sm" />
+            <img src={logoUrl} alt="Tia Maroka Logo" className="h-16 md:h-20 w-auto object-contain drop-shadow-sm" />
           ) : (
             <div className="font-headline-lg text-headline-lg font-black text-primary">
-              Tia Maroca
+              Tia Maroka
             </div>
           )}
         </Link>
