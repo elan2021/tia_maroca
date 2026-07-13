@@ -19,19 +19,18 @@ export default function Header() {
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href="#"
-              className={
-                link.active
-                  ? "text-primary border-b-2 border-primary font-bold pb-1 font-label-lg text-label-lg transition-colors duration-200"
-                  : "text-on-surface-variant hover:text-primary font-label-lg text-label-lg transition-colors duration-200"
-              }
-            >
-              {link.label}
-            </a>
-          ))}
+          <Link href="/" className="text-primary hover:border-b-2 hover:border-primary pb-1 font-label-lg text-label-lg transition-colors duration-200">
+            Início
+          </Link>
+          <Link href="/sobre" className="text-on-surface-variant hover:text-primary font-label-lg text-label-lg transition-colors duration-200">
+            Sobre
+          </Link>
+          <Link href="/atividades" className="text-on-surface-variant hover:text-primary font-label-lg text-label-lg transition-colors duration-200">
+            Atividades
+          </Link>
+          <Link href="/contato" className="text-on-surface-variant hover:text-primary font-label-lg text-label-lg transition-colors duration-200">
+            Contato
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4 mt-4 md:mt-0">

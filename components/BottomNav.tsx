@@ -1,30 +1,36 @@
-import Icon from "./Icon";
-
-const items = [
-  { label: "Início", icon: "home", active: true },
-  { label: "Sobre", icon: "person", active: false },
-  { label: "Atividades", icon: "school", active: false },
-  { label: "Blog", icon: "menu_book", active: false },
-  { label: "Contato", icon: "mail", active: false },
-];
+import Link from "next/link";
 
 export default function BottomNav() {
   return (
     <nav className="fixed bottom-0 w-full z-50 md:hidden bg-surface shadow-xl border-t border-outline-variant flex justify-around items-center h-16 px-2">
-      {items.map((item) => (
-        <a
-          key={item.label}
-          href="#"
-          className={
-            item.active
-              ? "flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 active:scale-100 transition-all"
-              : "flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 scale-90 active:scale-100 transition-all"
-          }
-        >
-          <Icon name={item.icon} />
-          <span className="font-label-lg text-label-lg">{item.label}</span>
-        </a>
-      ))}
+      <Link
+        href="/"
+        className="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 active:scale-100 transition-all"
+      >
+        <span className="material-symbols-outlined">home</span>
+        <span className="font-label-lg text-label-lg">Início</span>
+      </Link>
+      <Link
+        href="/sobre"
+        className="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 scale-90 active:scale-100 transition-all"
+      >
+        <span className="material-symbols-outlined">person</span>
+        <span className="font-label-lg text-label-lg">Sobre</span>
+      </Link>
+      <Link
+        href="/atividades"
+        className="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 scale-90 active:scale-100 transition-all"
+      >
+        <span className="material-symbols-outlined">school</span>
+        <span className="font-label-lg text-label-lg">Atividades</span>
+      </Link>
+      <Link
+        href="/contato"
+        className="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 scale-90 active:scale-100 transition-all"
+      >
+        <span className="material-symbols-outlined">mail</span>
+        <span className="font-label-lg text-label-lg">Contato</span>
+      </Link>
     </nav>
   );
 }

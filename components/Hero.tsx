@@ -63,7 +63,7 @@ export default async function Hero() {
             </div>
             <div className="absolute -bottom-6 -right-6 bg-secondary-container p-6 rounded-3xl shadow-xl border-4 border-white transform rotate-3">
               <p className="font-headline-md text-headline-md text-on-secondary-container">
-                Professora Sabrina
+                Professora Mara Oliveira
               </p>
               <p className="font-label-lg text-label-lg text-secondary">
                 Pedagoga &amp; Mentora
