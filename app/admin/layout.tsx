@@ -2,6 +2,8 @@ import { signOut } from "@/auth"
 import Link from "next/link"
 import "@/app/globals.css"
 
+export const dynamic = "force-dynamic"
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-surface flex flex-col md:flex-row">
