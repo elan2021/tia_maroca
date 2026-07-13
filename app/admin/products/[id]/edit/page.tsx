@@ -5,6 +5,10 @@ import Link from "next/link"
 
 export const dynamic = "force-dynamic"
 
+export async function generateStaticParams() {
+  return []
+}
+
 export default async function EditProductPage({ params }: { params: { id: string } }) {
   const product = await db.product.findUnique({
     where: { id: params.id }
