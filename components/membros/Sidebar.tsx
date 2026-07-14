@@ -1,15 +1,21 @@
-export default function Sidebar() {
+import { db } from "@/lib/db";
+
+export default async function Sidebar() {
+  const settings = await db.siteSetting.findMany();
+  const logoUrl = settings.find((s) => s.key === "logoUrl")?.value;
+
   return (
     <aside className="fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant/10 shadow-xl flex flex-col py-8 z-[60] hidden md:flex">
-      <div className="px-6 mb-8">
-        <img
-          alt="Logo Tia Maroka"
-          className="w-full object-contain mb-2"
-          src="https://lh3.googleusercontent.com/aida/AP1WRLuJcOEQbPA2Dot_aHiMGaCXzxHWd2zCmbW-4ET5xnUE7h5UJN3D3HL2vjdbdwDf7-ZZmzpx7LTiLcxhR9l3wcsziJlOrcpZVh5QQS8AX_dKtwy8iEUyo4uwLrxZ0A1Qfe_GNkg3MuRvRdWx5CdTPVcpqRw8FeKUakddUzlVV95Qm0DRsz1SY6mzPYIlxPFAi11CTmMdomH1NLg5neBymIVahdDRegZR10ybwTfKhDeByugCh3luNBTJAw"
-        />
-        <p className="text-[10px] text-on-surface-variant/60 uppercase tracking-[0.2em] font-semibold">
-          Atividades Pedagógicas
-        </p>
+      <div className="px-6 mb-8 flex items-center justify-center">
+        {logoUrl ? (
+          <img
+            alt="Logo Tia Maroka"
+            className="w-full object-contain max-h-16"
+            src={logoUrl}
+          />
+        ) : (
+          <span className="font-membros-display font-black text-2xl text-primary">TIA MAROKA</span>
+        )}
       </div>
       <nav className="flex-1 space-y-1">
         <a
