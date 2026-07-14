@@ -44,9 +44,12 @@ export default async function Header() {
             <Icon name="search" className="absolute right-4 top-2.5 text-primary" />
           </div>
 
-          <button className="bg-primary-container text-on-primary-container font-label-lg text-label-lg px-6 py-2 rounded-full font-bold active:scale-95 transition-transform">
+          <Link
+            href="/membros"
+            className="flex-1 md:flex-none text-center bg-primary text-white font-label-lg px-6 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm"
+          >
             Área de Membro
-          </button>
+          </Link>
 
           <div className="relative">
             <Icon name="shopping_cart" className="text-primary cursor-pointer text-[28px]" />
