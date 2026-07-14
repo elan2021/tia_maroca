@@ -24,7 +24,7 @@ export default function MembrosPage() {
               Especial Tia Maroka
             </span>
           </div>
-          <h2 className="font-membros-display font-black text-[56px] leading-tight mb-4 max-w-3xl text-white">
+          <h2 className="font-membros-display font-black text-4xl md:text-[56px] leading-tight mb-4 max-w-3xl text-white">
             PACKS DE ATIVIDADES PEDAGÓGICAS
           </h2>
           <p className="font-membros-body text-lg text-white/80 mb-8 max-w-2xl">

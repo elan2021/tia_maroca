@@ -36,7 +36,7 @@ export default function PackPage({ params }: { params: { id: string } }) {
                 • Alfabetização Inicial
               </span>
             </div>
-            <h2 className="font-membros-display font-black text-5xl md:text-[56px] text-on-surface mb-4 leading-tight">
+            <h2 className="font-membros-display font-black text-4xl md:text-[56px] text-on-surface mb-4 leading-tight">
               Alfabetização Divertida
             </h2>
             <p className="font-membros-body text-lg text-on-surface-variant mb-8 max-w-2xl">
