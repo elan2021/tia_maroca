@@ -37,12 +37,12 @@ export default async function Hero() {
             {heroSubtitle}
           </p>
 
-          <div className="flex flex-wrap gap-4 pt-4">
-            <button className="bg-primary hover:bg-on-primary-fixed-variant text-white font-headline-md text-headline-md px-10 py-4 rounded-full transition-all shadow-lg flex items-center gap-2">
+          <div className="flex flex-row gap-3 md:gap-4 pt-4 w-full">
+            <button className="flex-1 bg-primary hover:bg-on-primary-fixed-variant text-white font-headline-md font-bold text-sm md:text-headline-md px-2 md:px-10 py-3 md:py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-1 md:gap-2 whitespace-nowrap">
               Ver Novidades
-              <Icon name="rocket_launch" />
+              <Icon name="rocket_launch" className="text-lg md:text-2xl" />
             </button>
-            <button className="border-2 border-secondary text-secondary font-headline-md text-headline-md px-10 py-4 rounded-full hover:bg-secondary-container transition-all">
+            <button className="flex-1 border-2 border-secondary text-secondary font-headline-md font-bold text-sm md:text-headline-md px-2 md:px-10 py-3 md:py-4 rounded-full hover:bg-secondary-container transition-all flex items-center justify-center whitespace-nowrap">
               Sobre Mim
             </button>
           </div>
