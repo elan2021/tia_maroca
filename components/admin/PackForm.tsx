@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { createPackAction, updatePackAction } from "@/app/admin/packs/actions"
+import { createPackAction, updatePackAction } from "@/app/admin/(dashboard)/packs/actions"
 
 type ModuleData = {
   id: string; // internal id for react key
