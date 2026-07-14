@@ -31,18 +31,18 @@ export default function MembrosPage() {
             Materiais lúdicos, prontos para imprimir e aplicar, pensados para o
             desenvolvimento infantil.
           </p>
-          <div className="flex items-center gap-4">
-            <button className="bg-white text-black px-10 py-3.5 rounded-lg font-bold flex items-center gap-2 hover:bg-white/90 transition-all active:scale-95">
+          <div className="flex flex-row items-center gap-2 md:gap-4 w-full">
+            <button className="flex-1 justify-center whitespace-nowrap bg-white text-black px-4 md:px-10 py-3 md:py-3.5 rounded-lg font-bold text-sm md:text-base flex items-center gap-1 md:gap-2 hover:bg-white/90 transition-all active:scale-95">
               <span
-                className="material-symbols-outlined"
+                className="material-symbols-outlined text-lg md:text-2xl"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
                 view_module
               </span>
               Ver Packs
             </button>
-            <button className="bg-black/40 backdrop-blur-md border border-white/20 px-10 py-3.5 rounded-lg font-bold flex items-center gap-2 text-white hover:bg-white/10 transition-all active:scale-95">
-              <span className="material-symbols-outlined">info</span>
+            <button className="flex-1 justify-center whitespace-nowrap bg-black/40 backdrop-blur-md border border-white/20 px-4 md:px-10 py-3 md:py-3.5 rounded-lg font-bold text-sm md:text-base flex items-center gap-1 md:gap-2 text-white hover:bg-white/10 transition-all active:scale-95">
+              <span className="material-symbols-outlined text-lg md:text-2xl">info</span>
               Saiba Mais
             </button>
           </div>

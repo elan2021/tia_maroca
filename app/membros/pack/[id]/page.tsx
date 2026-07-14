@@ -71,13 +71,13 @@ export default function PackPage({ params }: { params: { id: string } }) {
                 </span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4">
-              <button className="flex items-center gap-3 px-8 py-4 bg-primary-container text-white font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_40px_rgba(229,9,20,0.25)]">
-                <span className="material-symbols-outlined">download</span>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
+              <button className="flex-1 justify-center whitespace-nowrap bg-primary-container text-white font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_40px_rgba(229,9,20,0.25)] flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 text-sm md:text-base">
+                <span className="material-symbols-outlined text-lg md:text-2xl">download</span>
                 Download Pack (PDF)
               </button>
-              <button className="flex items-center gap-3 px-8 py-4 bg-surface-variant/40 border border-white/10 backdrop-blur-md text-on-surface font-bold rounded-lg hover:bg-white/10 transition-all">
-                <span className="material-symbols-outlined">favorite</span>
+              <button className="flex-1 justify-center whitespace-nowrap bg-surface-variant/40 border border-white/10 backdrop-blur-md text-on-surface font-bold rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 text-sm md:text-base">
+                <span className="material-symbols-outlined text-lg md:text-2xl">favorite</span>
                 Adicionar aos Favoritos
               </button>
             </div>
