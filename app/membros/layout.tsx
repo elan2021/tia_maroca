@@ -15,7 +15,7 @@ export default function MembrosLayout({
       </main>
       
       {/* Mobile Navigation */}
-      <nav className="fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-lg md:hidden flex justify-around items-center h-16 z-[60] border-t border-outline-variant/10">
+      <nav className="fixed bottom-0 left-0 w-full bg-background/95 backdrop-blur-xl md:hidden flex justify-around items-center h-16 z-[60] border-t border-white/5">
         <a className="flex flex-col items-center gap-1 text-primary" href="/membros">
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
           <span className="text-[10px] font-bold">Início</span>
