@@ -3,28 +3,20 @@
 import { db } from "@/lib/db"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import fs from "fs/promises"
-import path from "path"
+import { put } from "@vercel/blob"
 
 async function uploadFile(file: File | null): Promise<string | null> {
   if (!file || file.size === 0) return null
 
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-  
   const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
-  const uploadDir = path.join(process.cwd(), "public/uploads")
   
   try {
-    await fs.access(uploadDir)
-  } catch {
-    await fs.mkdir(uploadDir, { recursive: true })
+    const blob = await put(`uploads/${fileName}`, file, { access: 'public' })
+    return blob.url
+  } catch (error) {
+    console.error("Vercel Blob Upload Error:", error)
+    return null
   }
-  
-  const filePath = path.join(uploadDir, fileName)
-  await fs.writeFile(filePath, buffer)
-  
-  return `/uploads/${fileName}`
 }
 
 export async function createPackAction(formData: FormData) {
