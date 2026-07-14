@@ -1,6 +1,6 @@
 export default function TopBar() {
   return (
-    <header className="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-16 bg-background/95 backdrop-blur-xl z-50 flex justify-between items-center px-8 border-b border-white/5">
+    <header className="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-16 bg-[#131313]/95 backdrop-blur-xl z-50 flex justify-between items-center px-8 border-b border-white/5">
       <div className="flex items-center gap-4">
         <button className="md:hidden text-on-surface">
           <span className="material-symbols-outlined">menu</span>
