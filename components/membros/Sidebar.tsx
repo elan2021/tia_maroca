@@ -2,21 +2,9 @@ import { db } from "@/lib/db";
 
 export default async function Sidebar() {
   const settings = await db.siteSetting.findMany();
-  const logoUrl = settings.find((s) => s.key === "logoUrl")?.value;
 
   return (
     <aside className="fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant/10 shadow-xl flex flex-col py-8 z-[60] hidden md:flex">
-      <div className="px-6 mb-8 flex items-center justify-center">
-        {logoUrl ? (
-          <img
-            alt="Logo Tia Maroka"
-            className="w-full object-contain max-h-16"
-            src={logoUrl}
-          />
-        ) : (
-          <span className="font-membros-display font-black text-2xl text-primary">TIA MAROKA</span>
-        )}
-      </div>
       <nav className="flex-1 space-y-1">
         <a
           className="flex items-center gap-4 px-6 py-3 text-primary border-l-4 border-primary bg-primary-container/10 transition-all duration-300"
