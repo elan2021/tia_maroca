@@ -10,7 +10,7 @@ export default function MembrosPage() {
               "url('https://lh3.googleusercontent.com/aida/AP1WRLtc6M1lCiyizsrBKAdlx-WqqcxU5ruzvjTXPT3rtAdSsgRdh6pBZIhJi2ewb5MSSpz0hgcbTXxvEFZHuWD6rtI19jnSWMA1r2olIts-RvMIeh-Ezgzvj6zFP-G3TlsyrRr1PP8Ix_9JgZQglJwbUFTYN1MqBl9b6ENZMkr55NK0puHkJAUEE5MOOlroiHWiZUmluDKox8xawzQfNuODxOiWzPE8hQOt3S1OU2RcHa-JxsMt_Y5G5U2E7A')",
           }}
         >
-          <div className="absolute inset-0 hero-gradient"></div>
+          <div className="absolute inset-0 bg-black/50 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         </div>
         <div className="relative h-full flex flex-col justify-end px-8 md:px-12 pb-20 max-w-5xl">
           <div className="flex items-center gap-2 mb-4">
