@@ -8,7 +8,7 @@ export default async function MembrosPage() {
   const session = await auth();
   const userId = session?.user?.id;
 
-  let packs = []
+  let packs: any[] = []
   
   if (userId === "admin") {
     packs = await db.pack.findMany({ orderBy: { createdAt: 'desc' } });
