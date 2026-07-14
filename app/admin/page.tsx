@@ -24,6 +24,17 @@ export default async function AdminDashboard() {
 
         <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
           <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+            <span className="material-symbols-outlined">folder_special</span>
+            Packs (Área de Membros)
+          </h2>
+          <p className="text-on-surface-variant mb-4">Adicione e gerencie os packs de atividades e planos de ensino.</p>
+          <a href="/admin/packs" className="inline-block px-6 py-2 bg-tertiary text-on-tertiary rounded-full font-medium hover:bg-tertiary/90 transition-colors">
+            Acessar Packs
+          </a>
+        </div>
+
+        <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
+          <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
             <span className="material-symbols-outlined">settings</span>
             Configurações do Site
           </h2>

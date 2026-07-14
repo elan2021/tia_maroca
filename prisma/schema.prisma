@@ -35,3 +35,22 @@ model SiteSetting {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Pack {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  image       String
+  category    String
+  tags        String
+  ageRange    String
+  pages       Int
+  format      String
+  fileSize    String
+  downloadUrl String?
+  isNew       Boolean  @default(false)
+  type        String   @default("pack") // "pack" or "plan"
+  modulesJson String?  // JSON string containing array of {title, description, image}
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
