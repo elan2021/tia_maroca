@@ -84,6 +84,12 @@ export default function PackForm({ pack }: { pack?: any }) {
             </select>
           </div>
 
+          <div>
+            <label className="block text-sm font-medium mb-2 text-on-surface">ID do Produto na Kiwify</label>
+            <input type="text" name="kiwifyId" defaultValue={pack?.kiwifyId || ""} className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary" placeholder="Ex: e61d6bc2-1234-..." />
+            <p className="text-[10px] text-on-surface-variant mt-1">Deixe em branco se não vender este pack isoladamente na Kiwify.</p>
+          </div>
+
           {/* DETALHES TÉCNICOS */}
           <div className="md:col-span-2 mt-4">
             <h3 className="text-lg font-bold text-on-surface mb-4 border-b border-outline-variant pb-2">Detalhes Técnicos</h3>

@@ -38,6 +38,8 @@ export async function createPackAction(formData: FormData) {
   const fileSize = formData.get("fileSize") as string
   const isNew = formData.get("isNew") === "on"
   const type = formData.get("type") as string || "pack"
+  let kiwifyId = formData.get("kiwifyId") as string || null
+  if (kiwifyId && kiwifyId.trim() === "") kiwifyId = null
   
   // Handled files
   const imageFile = formData.get("imageFile") as File
@@ -81,6 +83,7 @@ export async function createPackAction(formData: FormData) {
       downloadUrl,
       isNew,
       type,
+      kiwifyId,
       modulesJson,
     }
   })
@@ -104,6 +107,8 @@ export async function updatePackAction(id: string, formData: FormData) {
   const fileSize = formData.get("fileSize") as string
   const isNew = formData.get("isNew") === "on"
   const type = formData.get("type") as string || "pack"
+  let kiwifyId = formData.get("kiwifyId") as string || null
+  if (kiwifyId && kiwifyId.trim() === "") kiwifyId = null
 
   // Handled files
   const imageFile = formData.get("imageFile") as File
@@ -160,6 +165,7 @@ export async function updatePackAction(id: string, formData: FormData) {
       downloadUrl,
       isNew,
       type,
+      kiwifyId,
       modulesJson,
     }
   })

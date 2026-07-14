@@ -1,5 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { db } from "@/lib/db"
+import bcrypt from "bcryptjs"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -21,6 +23,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ) {
           return { id: "admin", email: email, name: "Administrador" }
         }
+
+        try {
+          const user = await db.user.findUnique({
+            where: { email }
+          })
+
+          if (user && bcrypt.compareSync(password, user.password)) {
+            return { id: user.id, email: user.email, name: "Aluno" }
+          }
+        } catch (error) {
+          console.error("Auth error:", error)
+        }
         
         return null
       }
@@ -30,5 +44,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/admin/login",
   },
   session: { strategy: "jwt" },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+      }
+      return session
+    }
+  },
   trustHost: true
 })

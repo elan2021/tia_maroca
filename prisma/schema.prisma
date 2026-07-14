@@ -12,6 +12,7 @@ model User {
   id       String @id @default(uuid())
   email    String @unique
   password String
+  packs    Pack[]
 }
 
 model Product {
@@ -51,6 +52,8 @@ model Pack {
   isNew       Boolean  @default(false)
   type        String   @default("pack") // "pack" or "plan"
   modulesJson String?  // JSON string containing array of {title, description, image}
+  kiwifyId    String?  @unique // ID of the product on Kiwify
+  users       User[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

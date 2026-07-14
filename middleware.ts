@@ -5,16 +5,28 @@ import { auth } from "./auth"
 export default auth((req) => {
   const isLoggedIn = !!req.auth
   const isOnAdmin = req.nextUrl.pathname.startsWith('/admin')
-  const isOnLogin = req.nextUrl.pathname.startsWith('/admin/login')
+  const isOnAdminLogin = req.nextUrl.pathname.startsWith('/admin/login')
+  const isOnMembros = req.nextUrl.pathname.startsWith('/membros')
+  const isOnMembrosLogin = req.nextUrl.pathname.startsWith('/membros/login')
 
-  if (isOnAdmin && !isOnLogin) {
+  if (isOnAdmin && !isOnAdminLogin) {
     if (!isLoggedIn) {
       return NextResponse.redirect(new URL('/admin/login', req.nextUrl))
     }
   }
 
-  if (isOnLogin && isLoggedIn) {
+  if (isOnAdminLogin && isLoggedIn) {
     return NextResponse.redirect(new URL('/admin', req.nextUrl))
+  }
+
+  if (isOnMembros && !isOnMembrosLogin) {
+    if (!isLoggedIn) {
+      return NextResponse.redirect(new URL('/membros/login', req.nextUrl))
+    }
+  }
+
+  if (isOnMembrosLogin && isLoggedIn) {
+    return NextResponse.redirect(new URL('/membros', req.nextUrl))
   }
 
   return NextResponse.next()

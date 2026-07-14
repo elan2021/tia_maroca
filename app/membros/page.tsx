@@ -1,16 +1,31 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic"
 
 export default async function MembrosPage() {
-  const packs = await db.pack.findMany({
-    orderBy: { createdAt: 'desc' }
-  })
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  let packs = []
+  
+  if (userId === "admin") {
+    packs = await db.pack.findMany({ orderBy: { createdAt: 'desc' } });
+  } else if (userId) {
+    const userWithPacks = await db.user.findUnique({
+      where: { id: userId },
+      include: { packs: { orderBy: { createdAt: 'desc' } } }
+    });
+    packs = userWithPacks?.packs || [];
+  }
 
   const meusPacks = packs.filter(p => p.type === 'pack')
-  const novidades = packs.filter(p => p.isNew)
-  const planos = packs.filter(p => p.type === 'plan')
+  // We can still show all novidades/planos from the db for upselling or just from what they own.
+  // The plan said "O Painel do Membro vai mostrar na seção "Meus Packs" apenas os pacotes que o aluno possui."
+  const allPacks = await db.pack.findMany({ orderBy: { createdAt: 'desc' } });
+  const novidades = allPacks.filter(p => p.isNew)
+  const planos = allPacks.filter(p => p.type === 'plan')
 
   return (
     <>
