@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function MembrosPage() {
   return (
     <>
@@ -70,7 +72,7 @@ export default function MembrosPage() {
           </div>
           <div className="flex gap-card_gap overflow-x-auto pb-6 no-scrollbar scroll-smooth">
             {/* Card 1 */}
-            <div className="min-w-[320px] group cursor-pointer transition-all duration-300">
+            <Link href="/membros/pack/1" className="min-w-[320px] group cursor-pointer transition-all duration-300 block">
               <div className="aspect-video relative rounded-lg overflow-hidden bg-surface-container-highest shadow-lg mb-3">
                 <img
                   alt="Alfabetização Divertida"
@@ -95,9 +97,9 @@ export default function MembrosPage() {
               <p className="text-[10px] text-on-surface-variant/60 uppercase tracking-wider font-semibold">
                 Atividades de Escrita • Alfabeto
               </p>
-            </div>
+            </Link>
             {/* Card 2 */}
-            <div className="min-w-[320px] group cursor-pointer transition-all duration-300">
+            <Link href="/membros/pack/2" className="min-w-[320px] group cursor-pointer transition-all duration-300 block">
               <div className="aspect-video relative rounded-lg overflow-hidden bg-surface-container-highest shadow-lg mb-3">
                 <img
                   alt="Matemática Criativa"
@@ -122,9 +124,9 @@ export default function MembrosPage() {
               <p className="text-[10px] text-on-surface-variant/60 uppercase tracking-wider font-semibold">
                 Raciocínio Lógico • Números
               </p>
-            </div>
+            </Link>
             {/* Card 3 */}
-            <div className="min-w-[320px] group cursor-pointer transition-all duration-300">
+            <Link href="/membros/pack/3" className="min-w-[320px] group cursor-pointer transition-all duration-300 block">
               <div className="aspect-video relative rounded-lg overflow-hidden bg-surface-container-highest shadow-lg mb-3">
                 <div className="w-full h-full bg-surface-container-high flex items-center justify-center">
                   <span className="text-on-surface-variant/40 italic">img</span>
@@ -147,7 +149,7 @@ export default function MembrosPage() {
               <p className="text-[10px] text-on-surface-variant/60 uppercase tracking-wider font-semibold">
                 Coordenação Motora • Cores
               </p>
-            </div>
+            </Link>
           </div>
         </section>
 
