@@ -8,46 +8,7 @@ export default function Sidebar() {
           src="https://lh3.googleusercontent.com/aida/AP1WRLuJcOEQbPA2Dot_aHiMGaCXzxHWd2zCmbW-4ET5xnUE7h5UJN3D3HL2vjdbdwDf7-ZZmzpx7LTiLcxhR9l3wcsziJlOrcpZVh5QQS8AX_dKtwy8iEUyo4uwLrxZ0A1Qfe_GNkg3MuRvRdWx5CdTPVcpqRw8FeKUakddUzlVV95Qm0DRsz1SY6mzPYIlxPFAi11CTmMdomH1NLg5neBymIVahdDRegZR10ybwTfKhDeByugCh3luNBTJAw"
         />
         <p className="text-[10px] text-on-surface-variant/60 uppercase tracking-[0.2em] font-semibold">
-          Pedagogical Activities
-        </p>
-      </div>
-      <div className="px-6 mb-10 text-center">
-        <div className="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-          <svg className="w-full h-full" viewBox="0 0 100 100">
-            <circle
-              className="text-surface-container-highest"
-              cx="50"
-              cy="50"
-              fill="transparent"
-              r="42"
-              stroke="currentColor"
-              strokeWidth="6"
-            ></circle>
-            <circle
-              className="text-primary-container transition-all duration-300 transform -rotate-90 origin-center"
-              cx="50"
-              cy="50"
-              fill="transparent"
-              r="42"
-              stroke="currentColor"
-              strokeDasharray="263.89"
-              strokeDashoffset="65.97"
-              strokeLinecap="round"
-              strokeWidth="6"
-            ></circle>
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <img
-              alt="Profile"
-              className="w-14 h-14 rounded-md object-cover border border-outline-variant/30"
-              src="https://lh3.googleusercontent.com/aida/AP1WRLuJcOEQbPA2Dot_aHiMGaCXzxHWd2zCmbW-4ET5xnUE7h5UJN3D3HL2vjdbdwDf7-ZZmzpx7LTiLcxhR9l3wcsziJlOrcpZVh5QQS8AX_dKtwy8iEUyo4uwLrxZ0A1Qfe_GNkg3MuRvRdWx5CdTPVcpqRw8FeKUakddUzlVV95Qm0DRsz1SY6mzPYIlxPFAi11CTmMdomH1NLg5neBymIVahdDRegZR10ybwTfKhDeByugCh3luNBTJAw"
-            />
-          </div>
-        </div>
-        <p className="font-bold text-on-surface text-sm">Seu progresso</p>
-        <div className="h-0.5 w-12 bg-primary-container mx-auto my-2"></div>
-        <p className="text-[10px] text-on-surface-variant/70 uppercase tracking-wider">
-          Acesso restante: 245 dias
+          Atividades Pedagógicas
         </p>
       </div>
       <nav className="flex-1 space-y-1">
