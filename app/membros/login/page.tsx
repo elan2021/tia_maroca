@@ -26,17 +26,10 @@ export default function MembrosLoginPage({ searchParams }: { searchParams: { err
           // Troque esta URL pela imagem da menina que você salvou no seu computador.
           // Para usar uma imagem do seu PC, coloque ela na pasta 'public' (ex: public/bg-login.jpg)
           // E mude a URL abaixo para: backgroundImage: "url('/bg-login.jpg')"
-          backgroundImage: "url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80')",
+          backgroundImage: "url('https://img.magnific.com/fotos-gratis/garota-de-alto-angulo-fazendo-quebra-cabeca_23-2149557913.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black/50 md:bg-black/60 bg-gradient-to-t from-black/80 via-transparent to-black/60"></div>
-      </div>
-
-      {/* Header Logo (Netflix Style) */}
-      <div className="relative z-10 w-full px-6 py-6 md:absolute md:top-0 md:left-0 md:px-12 md:py-8">
-        <h1 className="font-membros-display text-primary text-4xl md:text-5xl font-black tracking-wider">
-          TIA MAROKA
-        </h1>
       </div>
 
       {/* Login Box */}
@@ -71,7 +64,7 @@ export default function MembrosLoginPage({ searchParams }: { searchParams: { err
             </div>
             <button 
               type="submit" 
-              className="w-full bg-primary hover:bg-[#e50914]/90 text-white font-bold py-4 rounded transition-colors mt-6 text-lg"
+              className="w-full bg-primary hover:bg-primary/90 text-on-primary font-bold py-4 rounded transition-colors mt-6 text-lg"
             >
               Continuar
             </button>
