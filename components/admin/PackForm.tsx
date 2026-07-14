@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useFormState } from "react-dom"
 import Link from "next/link"
 import { createPackAction, updatePackAction } from "@/app/admin/(dashboard)/packs/actions"
 
@@ -11,8 +12,25 @@ type ModuleData = {
   image: string; // existing image url
 }
 
+function SubmitButton({ isEditing }: { isEditing: boolean }) {
+  const [pending, setPending] = useState(false)
+  
+  return (
+    <button 
+      type="submit" 
+      disabled={pending}
+      onClick={() => setPending(true)}
+      className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-wait"
+    >
+      {pending ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
+    </button>
+  )
+}
+
 export default function PackForm({ pack }: { pack?: any }) {
   const isEditing = !!pack
+  const [error, setError] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
   
   // Parse existing modules
   let initialModules: ModuleData[] = []
@@ -40,12 +58,31 @@ export default function PackForm({ pack }: { pack?: any }) {
     setModules(modules.filter(m => m.id !== idToRemove))
   }
 
-  // Bind the correct action based on create/update
-  const formAction = isEditing ? updatePackAction.bind(null, pack.id) : createPackAction
+  async function handleSubmit(formData: FormData) {
+    setError(null)
+    setSaving(true)
+    try {
+      if (isEditing) {
+        await updatePackAction(pack.id, formData)
+      } else {
+        await createPackAction(formData)
+      }
+    } catch (err: any) {
+      console.error("Pack save error:", err)
+      setError(err?.message || "Erro desconhecido ao salvar o Pack. Verifique o console do navegador (F12).")
+      setSaving(false)
+    }
+  }
 
   return (
     <div className="bg-surface-container-low p-8 rounded-3xl border border-outline-variant">
-      <form action={formAction} className="space-y-6">
+      {error && (
+        <div className="mb-6 p-4 bg-red-100 border-2 border-red-500 rounded-2xl text-red-800">
+          <p className="font-bold text-sm">❌ Erro ao salvar:</p>
+          <p className="text-sm mt-1">{error}</p>
+        </div>
+      )}
+      <form action={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           {/* INFORMAÇÕES BÁSICAS */}
@@ -220,8 +257,12 @@ export default function PackForm({ pack }: { pack?: any }) {
           <Link href="/admin/packs" className="px-6 py-3 rounded-full font-medium hover:bg-surface-container-highest transition-colors">
             Cancelar
           </Link>
-          <button type="submit" className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm">
-            {isEditing ? 'Salvar Alterações' : 'Salvar Pack'}
+          <button 
+            type="submit" 
+            disabled={saving}
+            className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-wait"
+          >
+            {saving ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
           </button>
         </div>
       </form>
