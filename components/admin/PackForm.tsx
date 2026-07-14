@@ -1,38 +1,22 @@
 "use client"
 
-import { useState } from "react"
-import { useFormState } from "react-dom"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import { createPackAction, updatePackAction } from "@/app/admin/(dashboard)/packs/actions"
 
 type ModuleData = {
-  id: string; // internal id for react key
+  id: string;
   title: string;
   description: string;
-  image: string; // existing image url
-}
-
-function SubmitButton({ isEditing }: { isEditing: boolean }) {
-  const [pending, setPending] = useState(false)
-  
-  return (
-    <button 
-      type="submit" 
-      disabled={pending}
-      onClick={() => setPending(true)}
-      className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-wait"
-    >
-      {pending ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
-    </button>
-  )
+  image: string;
 }
 
 export default function PackForm({ pack }: { pack?: any }) {
   const isEditing = !!pack
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
   
-  // Parse existing modules
   let initialModules: ModuleData[] = []
   if (pack?.modulesJson) {
     try {
@@ -58,18 +42,27 @@ export default function PackForm({ pack }: { pack?: any }) {
     setModules(modules.filter(m => m.id !== idToRemove))
   }
 
-  async function handleSubmit(formData: FormData) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     setError(null)
     setSaving(true)
+
     try {
+      const formData = new FormData(e.currentTarget)
+
       if (isEditing) {
         await updatePackAction(pack.id, formData)
       } else {
         await createPackAction(formData)
       }
     } catch (err: any) {
+      // Next.js redirect() throws a special error — don't treat it as a real error
+      if (err?.digest?.startsWith?.("NEXT_REDIRECT")) {
+        window.location.href = "/admin/packs"
+        return
+      }
       console.error("Pack save error:", err)
-      setError(err?.message || "Erro desconhecido ao salvar o Pack. Verifique o console do navegador (F12).")
+      setError(err?.message || "Erro desconhecido ao salvar. Abra o console do navegador (F12) para mais detalhes.")
       setSaving(false)
     }
   }
@@ -82,7 +75,7 @@ export default function PackForm({ pack }: { pack?: any }) {
           <p className="text-sm mt-1">{error}</p>
         </div>
       )}
-      <form action={handleSubmit} className="space-y-6">
+      <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           {/* INFORMAÇÕES BÁSICAS */}
@@ -109,7 +102,8 @@ export default function PackForm({ pack }: { pack?: any }) {
                 <img src={pack.image} alt="Capa atual" className="w-32 h-auto rounded-lg border border-outline-variant" />
               </div>
             )}
-            <input type="file" name="imageFile" accept="image/*" required={!isEditing} className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
+            <input type="file" name="imageFile" accept="image/*" className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
+            {!isEditing && <p className="text-xs text-on-surface-variant mt-2">Selecione uma imagem de capa para o Pack.</p>}
             {isEditing && <p className="text-xs text-on-surface-variant mt-2">Envie uma nova imagem apenas se quiser substituir a atual.</p>}
           </div>
 
@@ -183,7 +177,8 @@ export default function PackForm({ pack }: { pack?: any }) {
               </div>
             )}
             <label className="block text-sm font-medium mb-2 text-on-surface">Arquivo PDF do Pack</label>
-            <input type="file" name="pdfFile" accept=".pdf" required={!isEditing} className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
+            <input type="file" name="pdfFile" accept=".pdf" className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
+            {!isEditing && <p className="text-xs text-on-surface-variant mt-2">Selecione o PDF do Pack.</p>}
             {isEditing && <p className="text-xs text-on-surface-variant mt-2">Envie um novo PDF apenas se quiser substituir o atual.</p>}
           </div>
 
@@ -225,12 +220,12 @@ export default function PackForm({ pack }: { pack?: any }) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
                       <label className="block text-xs font-medium mb-1 text-on-surface">Título do Módulo</label>
-                      <input type="text" name={`moduleTitle_${index}`} defaultValue={mod.title} required className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary text-sm" placeholder="Ex: Módulo: Vogais" />
+                      <input type="text" name={`moduleTitle_${index}`} defaultValue={mod.title} className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary text-sm" placeholder="Ex: Módulo: Vogais" />
                     </div>
                     
                     <div className="md:col-span-2">
                       <label className="block text-xs font-medium mb-1 text-on-surface">Descrição Curta</label>
-                      <input type="text" name={`moduleDesc_${index}`} defaultValue={mod.description} required className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary text-sm" placeholder="Ex: Introdução divertida aos sons..." />
+                      <input type="text" name={`moduleDesc_${index}`} defaultValue={mod.description} className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary text-sm" placeholder="Ex: Introdução divertida aos sons..." />
                     </div>
 
                     <div className="md:col-span-2">
@@ -243,7 +238,7 @@ export default function PackForm({ pack }: { pack?: any }) {
                         </div>
                       )}
                       <input type="hidden" name={`moduleExistingImage_${index}`} value={mod.image} />
-                      <input type="file" name={`moduleImage_${index}`} accept="image/*" required={!mod.image} className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90 text-sm" />
+                      <input type="file" name={`moduleImage_${index}`} accept="image/*" className="w-full px-4 py-2 rounded-xl bg-background border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90 text-sm" />
                     </div>
                   </div>
                 </div>
@@ -262,7 +257,7 @@ export default function PackForm({ pack }: { pack?: any }) {
             disabled={saving}
             className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-wait"
           >
-            {saving ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
+            {saving ? '⏳ Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
           </button>
         </div>
       </form>
