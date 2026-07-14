@@ -46,7 +46,7 @@ export default async function Header() {
 
           <Link
             href="/membros"
-            className="flex-1 md:flex-none text-center bg-primary text-white font-label-lg px-6 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm"
+            className="flex-1 md:flex-none text-center bg-primary text-white font-label-lg text-xs md:text-sm px-3 md:px-6 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap"
           >
             Área de Membro
           </Link>
