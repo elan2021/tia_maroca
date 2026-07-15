@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { auth } from "@/auth";
 
 export default async function PackPage({ params }: { params: { id: string } }) {
   const pack = await db.pack.findUnique({
@@ -9,6 +10,24 @@ export default async function PackPage({ params }: { params: { id: string } }) {
 
   if (!pack) {
     return notFound();
+  }
+
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  let hasAccess = false;
+  if (userId === "admin") {
+    hasAccess = true;
+  } else if (userId) {
+    const userWithPack = await db.user.findFirst({
+      where: {
+        id: userId,
+        packs: {
+          some: { id: params.id }
+        }
+      }
+    });
+    hasAccess = !!userWithPack;
   }
 
   let modules: Array<{title: string, description: string, image: string}> = [];
@@ -94,7 +113,12 @@ export default async function PackPage({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
-              {pack.downloadUrl ? (
+              {!hasAccess ? (
+                <button disabled className="flex-1 justify-center whitespace-nowrap bg-surface-variant text-on-surface-variant opacity-70 cursor-not-allowed font-bold rounded-lg flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 text-sm md:text-base border border-outline-variant">
+                  <span className="material-symbols-outlined text-lg md:text-2xl">lock</span>
+                  Adquira este Pack para Liberar o Download
+                </button>
+              ) : pack.downloadUrl ? (
                 <a href={pack.downloadUrl} download target="_blank" rel="noreferrer" className="flex-1 justify-center whitespace-nowrap bg-primary-container text-white font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_40px_rgba(229,9,20,0.25)] flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 text-sm md:text-base">
                   <span className="material-symbols-outlined text-lg md:text-2xl">download</span>
                   Download Pack (PDF)
