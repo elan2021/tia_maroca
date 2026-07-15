@@ -8,10 +8,16 @@ const client = createClient({
 
 async function run() {
   try {
-    const result = await client.execute("SELECT id, title, kiwifyId FROM Pack;");
-    console.log("Packs no DB:", result.rows);
+    const result = await client.execute("SELECT id, title, image, downloadUrl FROM Pack ORDER BY createdAt DESC LIMIT 3;");
+    for (const row of result.rows) {
+      console.log("---");
+      console.log("ID:", row.id);
+      console.log("Title:", row.title);
+      console.log("Image:", row.image);
+      console.log("DownloadUrl:", row.downloadUrl);
+    }
   } catch (error) {
-    console.error("Check failed:", error);
+    console.error("Error:", error);
   }
 }
 

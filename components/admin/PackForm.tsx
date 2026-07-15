@@ -15,16 +15,11 @@ type ModuleData = {
 async function uploadFileToBlobClient(file: File | null): Promise<string> {
   if (!file || file.size === 0) return ""
   
-  try {
-    const blob = await upload(file.name, file, {
-      access: 'public',
-      handleUploadUrl: '/api/upload',
-    })
-    return blob.url
-  } catch (error) {
-    console.error("Upload error:", error)
-    return ""
-  }
+  const blob = await upload(file.name, file, {
+    access: 'public',
+    handleUploadUrl: '/api/upload',
+  })
+  return blob.url
 }
 
 export default function PackForm({ pack }: { pack?: any }) {
