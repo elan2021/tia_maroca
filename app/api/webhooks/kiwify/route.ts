@@ -60,11 +60,15 @@ export async function POST(req: Request) {
         }
       });
 
-      // Send emails (await to capture errors for debugging)
+      // Send emails (don't block the response if email fails)
       if (passwordGenerated) {
-        await sendWelcomeEmail(customerEmail, rawPassword, pack.title);
+        sendWelcomeEmail(customerEmail, rawPassword, pack.title).catch(err => {
+          console.error("Failed to send welcome email:", err);
+        });
       } else {
-        await sendPackAddedEmail(customerEmail, pack.title);
+        sendPackAddedEmail(customerEmail, pack.title).catch(err => {
+          console.error("Failed to send pack added email:", err);
+        });
       }
     }
 
