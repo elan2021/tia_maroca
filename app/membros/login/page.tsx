@@ -1,16 +1,21 @@
 import { signIn } from "@/auth"
 import { redirect } from "next/navigation"
 
-export default function MembrosLoginPage({ searchParams }: { searchParams: { error?: string } }) {
+export const dynamic = "force-dynamic"
+
+export default function MembrosLoginPage({ searchParams }: { searchParams?: { error?: string } }) {
+  const error = searchParams?.error
+
   async function loginAction(formData: FormData) {
     "use server"
     try {
       await signIn("credentials", {
-        ...Object.fromEntries(formData),
+        email: formData.get("email"),
+        password: formData.get("password"),
         redirectTo: "/membros",
       })
     } catch (error: any) {
-      if (error.message.includes("CredentialsSignin")) {
+      if (error?.type === "CredentialsSignin" || error?.message?.includes?.("CredentialsSignin")) {
         redirect("/membros/login?error=CredentialsSignin")
       }
       throw error
@@ -37,7 +42,7 @@ export default function MembrosLoginPage({ searchParams }: { searchParams: { err
         <div className="w-full max-w-[450px] bg-black/70 backdrop-blur-sm p-10 md:p-16 rounded-xl shadow-2xl border border-white/5">
           <h2 className="text-white text-3xl font-bold mb-8">Entrar</h2>
 
-          {searchParams.error === "CredentialsSignin" && (
+          {error === "CredentialsSignin" && (
             <div className="bg-[#e87c03] text-white px-4 py-3 rounded mb-6 text-sm">
               E-mail ou senha incorretos. Tente novamente.
             </div>
