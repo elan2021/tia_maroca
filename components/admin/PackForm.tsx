@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react"
 import Link from "next/link"
+import { upload } from "@vercel/blob/client"
 import { createPackAction, updatePackAction } from "@/app/admin/(dashboard)/packs/actions"
 
 type ModuleData = {
@@ -11,10 +12,26 @@ type ModuleData = {
   image: string;
 }
 
+async function uploadFileToBlobClient(file: File | null): Promise<string> {
+  if (!file || file.size === 0) return ""
+  
+  try {
+    const blob = await upload(file.name, file, {
+      access: 'public',
+      handleUploadUrl: '/api/upload',
+    })
+    return blob.url
+  } catch (error) {
+    console.error("Upload error:", error)
+    return ""
+  }
+}
+
 export default function PackForm({ pack }: { pack?: any }) {
   const isEditing = !!pack
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const [status, setStatus] = useState("")
   const formRef = useRef<HTMLFormElement>(null)
   
   let initialModules: ModuleData[] = []
@@ -48,22 +65,82 @@ export default function PackForm({ pack }: { pack?: any }) {
     setSaving(true)
 
     try {
-      const formData = new FormData(e.currentTarget)
+      const form = e.currentTarget
+      const formData = new FormData(form)
+
+      // ========== UPLOAD FILES DIRECTLY FROM BROWSER ==========
+      
+      // 1. Upload cover image
+      const imageFile = formData.get("imageFile") as File
+      setStatus("Enviando imagem de capa...")
+      const imageUrl = await uploadFileToBlobClient(imageFile)
+      
+      // 2. Upload PDF
+      const pdfFile = formData.get("pdfFile") as File
+      setStatus("Enviando PDF...")
+      const pdfUrl = await uploadFileToBlobClient(pdfFile)
+
+      // 3. Upload module images
+      const modulesCount = parseInt(formData.get("modulesCount") as string) || 0
+      const moduleImageUrls: string[] = []
+      
+      for (let i = 0; i < modulesCount; i++) {
+        const modImageFile = formData.get(`moduleImage_${i}`) as File
+        if (modImageFile && modImageFile.size > 0) {
+          setStatus(`Enviando imagem do módulo ${i + 1}...`)
+          const modUrl = await uploadFileToBlobClient(modImageFile)
+          moduleImageUrls.push(modUrl)
+        } else {
+          const existingUrl = formData.get(`moduleExistingImage_${i}`) as string || ""
+          moduleImageUrls.push(existingUrl)
+        }
+      }
+
+      // ========== BUILD CLEAN FORM DATA (text only, no files) ==========
+      setStatus("Salvando no banco de dados...")
+      
+      const cleanFormData = new FormData()
+      cleanFormData.set("title", formData.get("title") as string)
+      cleanFormData.set("description", formData.get("description") as string)
+      cleanFormData.set("category", formData.get("category") as string)
+      cleanFormData.set("tags", formData.get("tags") as string)
+      cleanFormData.set("ageRange", formData.get("ageRange") as string)
+      cleanFormData.set("pages", formData.get("pages") as string)
+      cleanFormData.set("format", formData.get("format") as string)
+      cleanFormData.set("fileSize", formData.get("fileSize") as string)
+      cleanFormData.set("type", formData.get("type") as string || "pack")
+      cleanFormData.set("kiwifyId", formData.get("kiwifyId") as string || "")
+      if (formData.get("isNew")) cleanFormData.set("isNew", "on")
+      
+      // Pass uploaded URLs instead of files
+      cleanFormData.set("imageUrl", imageUrl)
+      cleanFormData.set("downloadUrl", pdfUrl)
+      
+      // Pass module data
+      cleanFormData.set("modulesCount", String(modulesCount))
+      for (let i = 0; i < modulesCount; i++) {
+        cleanFormData.set(`moduleTitle_${i}`, formData.get(`moduleTitle_${i}`) as string || "")
+        cleanFormData.set(`moduleDesc_${i}`, formData.get(`moduleDesc_${i}`) as string || "")
+        cleanFormData.set(`moduleImageUrl_${i}`, moduleImageUrls[i] || "")
+      }
 
       if (isEditing) {
-        await updatePackAction(pack.id, formData)
+        await updatePackAction(pack.id, cleanFormData)
       } else {
-        await createPackAction(formData)
+        await createPackAction(cleanFormData)
       }
+      
+      // If redirect didn't fire, do it manually
+      window.location.href = "/admin/packs"
     } catch (err: any) {
-      // Next.js redirect() throws a special error — don't treat it as a real error
       if (err?.digest?.startsWith?.("NEXT_REDIRECT")) {
         window.location.href = "/admin/packs"
         return
       }
       console.error("Pack save error:", err)
-      setError(err?.message || "Erro desconhecido ao salvar. Abra o console do navegador (F12) para mais detalhes.")
+      setError(err?.message || "Erro ao salvar. Verifique o console (F12) para mais detalhes.")
       setSaving(false)
+      setStatus("")
     }
   }
 
@@ -103,7 +180,6 @@ export default function PackForm({ pack }: { pack?: any }) {
               </div>
             )}
             <input type="file" name="imageFile" accept="image/*" className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
-            {!isEditing && <p className="text-xs text-on-surface-variant mt-2">Selecione uma imagem de capa para o Pack.</p>}
             {isEditing && <p className="text-xs text-on-surface-variant mt-2">Envie uma nova imagem apenas se quiser substituir a atual.</p>}
           </div>
 
@@ -178,7 +254,6 @@ export default function PackForm({ pack }: { pack?: any }) {
             )}
             <label className="block text-sm font-medium mb-2 text-on-surface">Arquivo PDF do Pack</label>
             <input type="file" name="pdfFile" accept=".pdf" className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
-            {!isEditing && <p className="text-xs text-on-surface-variant mt-2">Selecione o PDF do Pack.</p>}
             {isEditing && <p className="text-xs text-on-surface-variant mt-2">Envie um novo PDF apenas se quiser substituir o atual.</p>}
           </div>
 
@@ -257,7 +332,7 @@ export default function PackForm({ pack }: { pack?: any }) {
             disabled={saving}
             className="px-6 py-3 bg-tertiary text-on-tertiary rounded-full font-bold hover:bg-tertiary/90 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-wait"
           >
-            {saving ? '⏳ Salvando...' : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
+            {saving ? `⏳ ${status || 'Salvando...'}` : (isEditing ? 'Salvar Alterações' : 'Salvar Pack')}
           </button>
         </div>
       </form>

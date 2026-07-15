@@ -3,21 +3,6 @@
 import { db } from "@/lib/db"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { put } from "@vercel/blob"
-
-async function uploadFile(file: File | null): Promise<string | null> {
-  if (!file || file.size === 0) return null
-
-  const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
-  
-  try {
-    const blob = await put(`uploads/${fileName}`, file, { access: 'public' })
-    return blob.url
-  } catch (error) {
-    console.error("Vercel Blob Upload Error:", error)
-    return null
-  }
-}
 
 export async function createPackAction(formData: FormData) {
   const title = formData.get("title") as string
@@ -33,24 +18,20 @@ export async function createPackAction(formData: FormData) {
   let kiwifyId = formData.get("kiwifyId") as string || null
   if (kiwifyId && kiwifyId.trim() === "") kiwifyId = null
   
-  // Handled files
-  const imageFile = formData.get("imageFile") as File
-  const pdfFile = formData.get("pdfFile") as File
+  // URLs already uploaded from client
+  const imageUrl = formData.get("imageUrl") as string || ""
+  const downloadUrl = formData.get("downloadUrl") as string || ""
 
-  const imageUrl = await uploadFile(imageFile) || ""
-  const downloadUrl = await uploadFile(pdfFile) || ""
-
-  // Handled modules
+  // Modules
   const modulesCount = parseInt(formData.get("modulesCount") as string) || 0
   const modulesData = []
 
   for (let i = 0; i < modulesCount; i++) {
     const modTitle = formData.get(`moduleTitle_${i}`) as string
     const modDesc = formData.get(`moduleDesc_${i}`) as string
-    const modImageFile = formData.get(`moduleImage_${i}`) as File
+    const modImageUrl = formData.get(`moduleImageUrl_${i}`) as string || ""
 
-    if (modTitle || modDesc || (modImageFile && modImageFile.size > 0)) {
-      const modImageUrl = await uploadFile(modImageFile) || ""
+    if (modTitle || modDesc || modImageUrl) {
       modulesData.push({
         title: modTitle || "",
         description: modDesc || "",
@@ -102,36 +83,23 @@ export async function updatePackAction(id: string, formData: FormData) {
   let kiwifyId = formData.get("kiwifyId") as string || null
   if (kiwifyId && kiwifyId.trim() === "") kiwifyId = null
 
-  // Handled files
-  const imageFile = formData.get("imageFile") as File
-  const pdfFile = formData.get("pdfFile") as File
+  // URLs already uploaded from client (empty = keep existing)
+  const newImageUrl = formData.get("imageUrl") as string
+  const newDownloadUrl = formData.get("downloadUrl") as string
 
-  let imageUrl = pack.image
-  if (imageFile && imageFile.size > 0) {
-    imageUrl = await uploadFile(imageFile) || pack.image
-  }
+  const imageUrl = newImageUrl || pack.image
+  const downloadUrl = newDownloadUrl || pack.downloadUrl || ""
 
-  let downloadUrl = pack.downloadUrl || ""
-  if (pdfFile && pdfFile.size > 0) {
-    downloadUrl = await uploadFile(pdfFile) || downloadUrl
-  }
-
-  // Handled modules
+  // Modules
   const modulesCount = parseInt(formData.get("modulesCount") as string) || 0
   const modulesData = []
 
   for (let i = 0; i < modulesCount; i++) {
     const modTitle = formData.get(`moduleTitle_${i}`) as string
     const modDesc = formData.get(`moduleDesc_${i}`) as string
-    const modImageFile = formData.get(`moduleImage_${i}`) as File
-    const modExistingImage = formData.get(`moduleExistingImage_${i}`) as string
+    const modImageUrl = formData.get(`moduleImageUrl_${i}`) as string || ""
 
-    if (modTitle || modDesc || (modImageFile && modImageFile.size > 0) || modExistingImage) {
-      let modImageUrl = modExistingImage || ""
-      if (modImageFile && modImageFile.size > 0) {
-        modImageUrl = await uploadFile(modImageFile) || modImageUrl
-      }
-
+    if (modTitle || modDesc || modImageUrl) {
       modulesData.push({
         title: modTitle || "",
         description: modDesc || "",
