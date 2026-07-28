@@ -22,7 +22,7 @@ async function uploadFileToBlobClient(file: File | null): Promise<string> {
   return blob.url
 }
 
-export default function PackForm({ pack }: { pack?: any }) {
+export default function PackForm({ pack, categories = [] }: { pack?: any, categories?: any[] }) {
   const isEditing = !!pack
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
@@ -199,7 +199,12 @@ export default function PackForm({ pack }: { pack?: any }) {
 
           <div>
             <label className="block text-sm font-medium mb-2 text-on-surface">Categoria</label>
-            <input type="text" name="category" defaultValue={pack?.category} required className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary" placeholder="Ex: Alfabetização Inicial" />
+            <select name="category" defaultValue={pack?.category} required className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary">
+              <option value="">Selecione uma categoria...</option>
+              {categories.map((cat: any) => (
+                <option key={cat.id} value={cat.name}>{cat.name}</option>
+              ))}
+            </select>
           </div>
 
           <div>

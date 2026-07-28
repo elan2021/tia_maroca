@@ -57,3 +57,12 @@ model Pack {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  icon      String
+  color     String   // "primary", "secondary", "tertiary", "neutral", "transparent"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

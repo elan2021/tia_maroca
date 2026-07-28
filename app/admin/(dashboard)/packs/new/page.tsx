@@ -1,7 +1,9 @@
 import Link from "next/link"
 import PackForm from "@/components/admin/PackForm"
+import { db } from "@/lib/db"
 
-export default function NewPackPage() {
+export default async function NewPackPage() {
+  const categories = await db.category.findMany({ orderBy: { name: 'asc' } })
   return (
     <div className="max-w-4xl mx-auto pb-12">
       <div className="flex items-center gap-4 mb-8">
@@ -11,7 +13,7 @@ export default function NewPackPage() {
         <h1 className="text-3xl font-bold font-title text-on-background">Novo Pack</h1>
       </div>
 
-      <PackForm />
+      <PackForm categories={categories} />
     </div>
   )
 }

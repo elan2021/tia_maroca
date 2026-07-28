@@ -4,9 +4,10 @@ import Link from "next/link"
 import PackForm from "@/components/admin/PackForm"
 
 export default async function EditPackPage({ params }: { params: { id: string } }) {
-  const pack = await db.pack.findUnique({
-    where: { id: params.id }
-  })
+  const [pack, categories] = await Promise.all([
+    db.pack.findUnique({ where: { id: params.id } }),
+    db.category.findMany({ orderBy: { name: 'asc' } })
+  ])
 
   if (!pack) {
     redirect("/admin/packs")
@@ -21,7 +22,7 @@ export default async function EditPackPage({ params }: { params: { id: string } 
         <h1 className="text-3xl font-bold font-title text-on-background">Editar Pack</h1>
       </div>
 
-      <PackForm pack={pack} />
+      <PackForm pack={pack} categories={categories} />
     </div>
   )
 }

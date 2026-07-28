@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Dashboard</Link>
           <Link href="/admin/products" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Produtos</Link>
           <Link href="/admin/packs" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Packs (Membros)</Link>
+          <Link href="/admin/categorias" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Categorias</Link>
           <Link href="/admin/settings" className="block px-4 py-3 rounded-full hover:bg-secondary-container hover:text-on-secondary-container transition-colors font-medium">Configurações</Link>
         </nav>
         <div className="p-4 border-t border-outline-variant">

@@ -5,17 +5,21 @@ import ProductShowcase from "@/components/ProductShowcase";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic"
 
-export default function Home() {
+export default async function Home() {
+  const categories = await db.category.findMany({ orderBy: { name: 'asc' } })
+
   return (
     <>
       <Header />
       <main className="max-w-container-max mx-auto pb-24 md:pb-12">
         <Hero />
-        <CategorySearch />
+        <CategorySearch categories={categories} />
         <ProductShowcase />
+
         <Newsletter />
       </main>
       <Footer />

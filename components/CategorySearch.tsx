@@ -1,14 +1,14 @@
 import Icon from "./Icon";
 
-export const categories = [
-  { label: "Alfabetização", icon: "apparel", bg: "bg-primary-fixed", text: "text-on-primary-fixed", hover: "hover:bg-primary-container" },
-  { label: "Matemática", icon: "calculate", bg: "bg-secondary-fixed", text: "text-on-secondary-fixed", hover: "hover:bg-secondary-container" },
-  { label: "Artes", icon: "brush", bg: "bg-tertiary-fixed", text: "text-on-tertiary-fixed", hover: "hover:bg-tertiary-container" },
-  { label: "Datas Comemorativas", icon: "celebration", bg: "bg-surface-container-highest", text: "text-on-surface-variant", hover: "hover:bg-outline-variant" },
-  { label: "Atividades Gratuitas", icon: "auto_awesome", bg: "bg-primary-container/20", text: "text-primary", hover: "hover:bg-primary-container/40" },
-];
+const colorStyles: Record<string, { bg: string, text: string, hover: string }> = {
+  primary: { bg: "bg-primary-fixed", text: "text-on-primary-fixed", hover: "hover:bg-primary-container" },
+  secondary: { bg: "bg-secondary-fixed", text: "text-on-secondary-fixed", hover: "hover:bg-secondary-container" },
+  tertiary: { bg: "bg-tertiary-fixed", text: "text-on-tertiary-fixed", hover: "hover:bg-tertiary-container" },
+  neutral: { bg: "bg-surface-container-highest", text: "text-on-surface-variant", hover: "hover:bg-outline-variant" },
+  transparent: { bg: "bg-primary-container/20", text: "text-primary", hover: "hover:bg-primary-container/40" },
+};
 
-export default function CategorySearch() {
+export default function CategorySearch({ categories = [] }: { categories?: any[] }) {
   return (
     <section className="px-margin-mobile md:px-margin-desktop py-12">
       <div className="bg-white rounded-[32px] p-8 md:p-12 cloud-shadow border border-outline-variant">
@@ -22,15 +22,18 @@ export default function CategorySearch() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.label}
-              className={`flex items-center gap-2 ${cat.bg} px-6 py-3 rounded-full font-label-lg text-label-lg ${cat.text} ${cat.hover} transition-colors`}
-            >
-              <Icon name={cat.icon} />
-              {cat.label}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const style = colorStyles[cat.color] || colorStyles.primary;
+            return (
+              <button
+                key={cat.id}
+                className={`flex items-center gap-2 ${style.bg} px-6 py-3 rounded-full font-label-lg text-label-lg ${style.text} ${style.hover} transition-colors`}
+              >
+                <Icon name={cat.icon} />
+                {cat.name}
+              </button>
+            )
+          })}
         </div>
       </div>
     </section>
