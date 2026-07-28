@@ -2,6 +2,7 @@ import { db } from "@/lib/db"
 import Link from "next/link"
 import Icon from "@/components/Icon"
 import { deleteCategoryAction } from "./actions"
+import DeleteCategoryButton from "@/components/admin/DeleteCategoryButton"
 
 export const dynamic = "force-dynamic"
 
@@ -63,21 +64,7 @@ export default async function CategoriasPage() {
                         <span className="material-symbols-outlined text-[20px]">edit</span>
                       </Link>
                       
-                      <form action={async () => {
-                        "use server"
-                        await deleteCategoryAction(cat.id)
-                      }}>
-                        <button 
-                          type="submit"
-                          className="p-2 text-error hover:bg-error-container rounded-full transition-colors"
-                          title="Excluir"
-                          onClick={(e) => {
-                            if (!confirm("Tem certeza que deseja excluir esta categoria?")) e.preventDefault()
-                          }}
-                        >
-                          <span className="material-symbols-outlined text-[20px]">delete</span>
-                        </button>
-                      </form>
+                      <DeleteCategoryButton id={cat.id} />
                     </div>
                   </td>
                 </tr>
